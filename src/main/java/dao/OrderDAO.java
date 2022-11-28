@@ -8,8 +8,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class OrderDAO {
+public class OrderDAO implements Callable<List<Order>> {
+    private String command;
+    private int userId;
+    private int roomId;
+    private int orderId;
+
+    public OrderDAO(String command, int userId, int roomId, int orderId) {
+        this.command = command;
+        this.userId = userId;
+        this.roomId = roomId;
+        this.orderId = orderId;
+    }
+
+    public OrderDAO(String command, int userId, int roomId) {
+        this.command = command;
+        this.userId = userId;
+        this.roomId = roomId;
+    }
+
+    public OrderDAO(String command, int orderId) {
+        this.command = command;
+        this.orderId = orderId;
+    }
+
+    public OrderDAO() {
+
+    }
+
+    public List<Order> call() {
+        switch (command) {
+            case "orderRoom": {
+                orderRoom(userId, roomId);
+                break;
+            }
+            case "unorderRoom": {
+                unorderRoom(roomId);
+                break;
+            }
+            case "getUserOrders": {
+                return getUserOrders(userId);
+            }
+            case "deleteOrder": {
+                deleteOrder(orderId);
+                break;
+            }
+        }
+        return null;
+    }
+
     public boolean orderRoom(int userId, int roomId) {
         try {
             Connection connection = Connector.getConnection();
@@ -24,7 +73,7 @@ public class OrderDAO {
         return false;
     }
 
-    public boolean unorderedRoom(int roomId) {
+    public boolean unorderRoom(int roomId) {
         try {
             Connection connection = Connector.getConnection();
             String sql = "DELETE FROM orders WHERE room_id = ?";

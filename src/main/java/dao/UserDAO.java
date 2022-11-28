@@ -6,8 +6,31 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.Callable;
 
-public class UserDAO {
+public class UserDAO implements Callable<User> {
+    private String command;
+    private User user;
+
+    public UserDAO(String command, User user) {
+        this.command = command;
+        this.user = user;
+    }
+
+    public User call() {
+        switch (command) {
+            case "createNewUser": {
+                createNewUser(user);
+                return null;
+            }
+            case "findUser": {
+                return findUser(user);
+            }
+        }
+        return null;
+    }
+
     public boolean createNewUser(User user) {
         boolean result = false;
         try {

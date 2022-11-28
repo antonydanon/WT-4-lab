@@ -8,8 +8,66 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class RoomDAO {
+public class RoomDAO implements Callable<List<Room>> {
+    private String command;
+    private int roomId;
+    private boolean status;
+    private int roomNumber;
+
+    public RoomDAO(String command, int roomId, boolean status, int roomNumber) {
+        this.command = command;
+        this.roomId = roomId;
+        this.status = status;
+        this.roomNumber = roomNumber;
+    }
+
+    public RoomDAO(String command, int roomId, boolean status) {
+        this.command = command;
+        this.roomId = roomId;
+        this.status = status;
+    }
+
+    public RoomDAO(String command, int roomId, int roomNumber) {
+        this.command = command;
+        this.roomId = roomId;
+        this.roomNumber = roomNumber;
+    }
+
+    public RoomDAO(String command) {
+        this.command = command;
+    }
+
+    public RoomDAO() {
+
+    }
+
+    public List<Room> call() throws Exception {
+        switch (command) {
+            case "getRooms": {
+                return getRooms();
+            }
+            case "updateRoomStatus": {
+                updateRoomStatus(roomId, status);
+                return null;
+
+            }
+            case "getRoom": {
+                ArrayList<Room> rooms = new ArrayList<Room>();
+                rooms.add(getRoom(roomId));
+                return rooms;
+
+            }
+            case "addNewRoom": {
+                addNewRoom(roomNumber);
+                return null;
+
+            }
+        }
+        return null;
+    }
+
     public List<Room> getRooms() {
         try {
             Connection connection = Connector.getConnection();
