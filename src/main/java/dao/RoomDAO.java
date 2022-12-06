@@ -93,7 +93,7 @@ public class RoomDAO implements Callable<List<Room>> {
     public boolean updateRoomStatus(int roomId, boolean status) {
         try {
             Connection connection = Connector.getConnection();
-            String sql = "UPDATE rooms SET room_reserv = ? WHERE room_id = ?";
+            String sql = "UPDATE rooms SET is_reserved = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBoolean(1, status);
             preparedStatement.setInt(2, roomId);
@@ -109,7 +109,7 @@ public class RoomDAO implements Callable<List<Room>> {
     public Room getRoom(int roomId) {
         try {
             Connection connection = Connector.getConnection();
-            String sql = "SELECT * FROM rooms WHERE room_id = ?";
+            String sql = "SELECT * FROM rooms WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, roomId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -129,7 +129,7 @@ public class RoomDAO implements Callable<List<Room>> {
     public boolean addNewRoom(int roomNumber) {
         try {
             Connection connection = Connector.getConnection();
-            String sql = "INSERT INTO rooms (room_number, room_reserv) VALUES (?, false)";
+            String sql = "INSERT INTO rooms (number, is_reserved) VALUES (?, false)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, roomNumber);
             return preparedStatement.executeUpdate() != 0;

@@ -24,7 +24,7 @@ public class OrderService {
         return false;
     }
 
-    public boolean unorderedRoom(int roomId) {
+    public boolean unorderRoom(int roomId) {
         Callable<List<Order>> unorderRoomCollable = new OrderDAO("unorderRoom", 0, roomId);
         boolean res = pool.submit(unorderRoomCollable) != null;
         pool.shutdown();

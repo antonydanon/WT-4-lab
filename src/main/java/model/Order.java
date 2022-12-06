@@ -1,42 +1,42 @@
 package model;
 
 public class Order {
-    private long orderId;
-    private long userId;
-    private long roomId;
+    private int orderId;
+    private int userId;
+    private int roomId;
 
-    public Order(long orderId, long userId, long roomId) {
+    public Order(int orderId, int userId, int roomId) {
         this.orderId = orderId;
         this.userId = userId;
         this.roomId = roomId;
     }
 
-    public Order(long userId, long roomId) {
+    public Order(int userId, int roomId) {
         this.userId = userId;
         this.roomId = roomId;
     }
 
-    public long getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(long orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public long getRoomId() {
+    public int getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(long roomId) {
+    public void setRoomId(int roomId) {
         this.roomId = roomId;
     }
 }

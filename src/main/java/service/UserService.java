@@ -3,7 +3,6 @@ package service;
 import dao.UserDAO;
 import model.User;
 
-import java.sql.SQLException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,10 +13,9 @@ public class UserService {
 
     public boolean createNewUser(User user)  {
         try {
-            Callable<User> createNewUserCallable = new UserDAO("createNewUser", user);
-            boolean res = pool.submit(createNewUserCallable) != null;
-            pool.shutdown();
-            return res;
+            UserDAO userDAO = new UserDAO("createNewUser", user);
+            User user1 = userDAO.call();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

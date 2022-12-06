@@ -35,7 +35,7 @@ public class UserDAO implements Callable<User> {
         boolean result = false;
         try {
             Connection connection = Connector.getConnection();
-            String sql = "INSERT INTO users (user_login, user_password, user_role) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (login, password, role) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, user.getLogin());
@@ -51,7 +51,7 @@ public class UserDAO implements Callable<User> {
     public User findUser(User user) {
         try {
             Connection connection = Connector.getConnection();
-            String sql = "SELECT * FROM users WHERE user_login = ? AND user_password = ?";
+            String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());

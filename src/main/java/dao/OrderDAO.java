@@ -113,7 +113,7 @@ public class OrderDAO implements Callable<List<Order>> {
     public boolean deleteOrder(int orderId) {
         try {
             Connection connection = Connector.getConnection();
-            String sql = "DELETE FROM orders WHERE order_id = ?";
+            String sql = "DELETE FROM orders WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, orderId);
             return preparedStatement.executeUpdate() != 0;

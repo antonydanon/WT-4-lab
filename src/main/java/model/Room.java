@@ -1,11 +1,11 @@
 package model;
 
 public class Room {
-    private long id;
+    private int id;
     private int number;
     private boolean isReserved;
 
-    public Room(long id, int number, boolean isReserved) {
+    public Room(int id, int number, boolean isReserved) {
         this.id = id;
         this.number = number;
         this.isReserved = isReserved;
@@ -16,11 +16,11 @@ public class Room {
         this.isReserved = isReserved;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
